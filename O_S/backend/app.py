@@ -6,6 +6,7 @@ from flask import request, Response
 import gspread
 from google.oauth2.service_account import Credentials
 
+
 # --- CONFIGURA TU USUARIO Y CONTRASEÑA AQUÍ ---
 
 USERNAME = "COSTO2SAS"
@@ -60,14 +61,15 @@ def incrementar_numero_orden():
 # configurar googlesheets
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-CREDS_FILE = "costollantas.json"
+import json
+CREDS_FILE = json.loads(os.getenv("CREDS_JSON"))
 SPREADSHEET_ID = "1iL1FLRb42b-mBZrSc2VVoC7NQJoQ8f420yrOaugrpKo"
 
 
 def guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono, items):
 
     # autenticacion google sheets
-    creds = Credentials.from_service_account_file(CREDS_FILE, scopes=SCOPES)
+    creds = Credentials.from_service_account_info(CREDS_FILE, scopes=SCOPES)
     client = gspread.authorize(creds)
 
     # abrir hoja
@@ -188,3 +190,4 @@ def register():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
