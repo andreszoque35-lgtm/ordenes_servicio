@@ -1,9 +1,0 @@
-Flask==3.1.2
-gspread==6.2.1
-openpyxl==3.1.5
-protobuf==6.33.1
-gunicorn==21.2.0
-google-auth
-google-auth-oauthlib
-google-auth-httplib2
-oauth2client
