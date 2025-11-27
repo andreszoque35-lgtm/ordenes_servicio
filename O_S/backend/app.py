@@ -41,7 +41,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "..", "fronthead")
 app = Flask(__name__, template_folder="../fronthead")
 
 #Numero de formulario
-
+'''
 def obtener_numero_orden():
     archivo = "contador.txt"
     if not os.path.exists(archivo):
@@ -56,7 +56,7 @@ def incrementar_numero_orden():
     numero = obtener_numero_orden() + 1
     with open("contador.txt", "w") as f:
         f.write(str(numero))
-
+'''
 
 # configurar googlesheets
 
@@ -91,6 +91,28 @@ def guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono
             item["Servicio"],
         ]
         sheet.append_row(fila)
+
+def obtener_numero_orden():
+    """
+    Obtiene el siguiente número de orden leyendo 
+    el último valor registrado en Google Sheets.
+    """
+    creds = Credentials.from_service_account_info(CREDS_FILE, scopes=SCOPES)
+    client = gspread.authorize(creds)
+
+    sheet = client.open_by_key(SPREADSHEET_ID).sheet1
+    columna_orden = sheet.col_values(1)  # columna A completa
+
+    # Si no hay registros, empezamos en 1
+    if len(columna_orden) <= 1:
+        return 1
+
+    try:
+        ultimo = int(columna_orden[-1])
+    except:
+        ultimo = 0
+
+    return ultimo + 1
 
 
 def guardar_excel(num_orden, nombre, cedula, empresa, vehiculo, telefono, items):
@@ -181,7 +203,7 @@ def register():
     # guardar excel
     guardar_excel(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
     # Guardar en Google Sheets
-    guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
+    # guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
 
     incrementar_numero_orden()
 
@@ -190,4 +212,5 @@ def register():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
