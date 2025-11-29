@@ -224,7 +224,7 @@ def register():
     # guardar excel
     guardar_excel(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
     # Guardar en Google Sheets
-    # guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
+    guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
 
     #incrementar_numero_orden()
 
@@ -233,6 +233,7 @@ def register():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
 
