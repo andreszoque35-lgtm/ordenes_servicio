@@ -9,11 +9,11 @@ from google.oauth2.service_account import Credentials
 
 # --- CONFIGURA TU USUARIO Y CONTRASEÑA AQUÍ ---
 
-USERNAME = "COSTO2SAS"
-PASSWORD = "1808"
+USERNAME = "COSTO"
+PASSWORD = "2525"
 
 
-def check_auth(username, password):
+'''def check_auth(username, password):
     return username == USERNAME and password == PASSWORD
 
 
@@ -34,11 +34,13 @@ def require_auth(f):
         return f(*args, **kwargs)
 
     return decorated
+'''
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "..", "fronthead")
 
 app = Flask(__name__, template_folder="../fronthead")
+app.secret_key = "CLAVE_SECRETA_SEGURA"
 
 #Numero de formulario
 '''
@@ -162,13 +164,30 @@ def guardar_excel(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
 
     wb.save(excel_file)
 
+#login
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        user = request.form["username"]
+        pwd = request.form["password"]
+
+        if user == USERNAME and pwd == PASSWORD:
+            session["logged"] = True
+            return redirect(url_for("index"))
+        else:
+            return "Usuario o contraseña incorrectos"
+
+    return render_template("login.html")
+
+
 
 # ruta principal - formualrio
 
-
 @app.route("/")
-@require_auth
+# @require_auth
 def index():
+    if not session.get("logged"):
+        return redirect(url_for("login"))
     num_orden = obtener_numero_orden()
     return render_template("index.html", num_orden=num_orden)
 
@@ -177,8 +196,11 @@ def index():
 
 
 @app.route("/register", methods=["POST"])
-@require_auth
+# @require_auth
 def register():
+    
+    if not session.get("logged"):
+        return redirect(url_for("login"))
 
     num_orden = obtener_numero_orden()
     nombre = request.form["Nombre"]
@@ -212,5 +234,6 @@ def register():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
