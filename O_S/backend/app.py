@@ -226,13 +226,14 @@ def register():
     # Guardar en Google Sheets
     # guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
 
-    incrementar_numero_orden()
+    #incrementar_numero_orden()
 
     return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
 
