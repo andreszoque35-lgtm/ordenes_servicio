@@ -90,6 +90,7 @@ def guardar_google_sheets(num_orden, nombre, cedula, empresa, vehiculo, telefono
             item["Referencia"],
             item["Serie"],
             item["Servicio"],
+            item["Observacion"],
         ]
         sheet.append_row(fila)
 
@@ -138,6 +139,7 @@ def guardar_excel(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
                 "Referencia",
                 "Serie",
                 "Servicio",
+                "Observacion",
             ]
         )
     else:
@@ -159,6 +161,7 @@ def guardar_excel(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
                 item["Referencia"],
                 item["Serie"],
                 item["Servicio"],
+                item["Observacion"],
             ])
 
     wb.save(excel_file)
@@ -214,12 +217,13 @@ def register():
     referencia = request.form.getlist("Referencias[]")
     serie = request.form.getlist("Serie[]")
     servicio = request.form.getlist("Tipos[]")
+    observacion = request.form.getlist("Observacion[]")
 
     # combinar items
 
     items = []
-    for s, c, v, st in zip(marca, referencia, serie, servicio):
-        items.append({"Marca": s, "Referencia": c, "Serie": v, "Servicio": st})
+    for s, c, v, st, o in zip(marca, referencia, serie, servicio, observacion):
+        items.append({"Marca": s, "Referencia": c, "Serie": v, "Servicio": st, "Observacion": o})
 
     # guardar excel
     guardar_excel(num_orden, nombre, cedula, empresa, vehiculo, telefono, items)
@@ -233,6 +237,7 @@ def register():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
 
