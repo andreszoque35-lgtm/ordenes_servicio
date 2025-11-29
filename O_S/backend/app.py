@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from openpyxl import Workbook, load_workbook
 import os
 #from functools import wraps
@@ -232,11 +232,13 @@ def register():
 
     #incrementar_numero_orden()
 
+    flash("¡Orden guardada exitosamente!")
     return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
 
