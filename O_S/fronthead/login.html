@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+
+    <!-- Fuente moderna y minimalista -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom, #f3f6fc, #dce3f0);
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .login-box {
+            padding: 35px;
+            background: white;
+            border-radius: 14px;
+            width: 340px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            text-align: center;
+            border-top: 4px solid #12306b; /* línea minimalista */
+        }
+
+        .logo {
+            width: 90px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #12306b;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #c4c9d6;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #12306b;
+            box-shadow: 0 0 4px rgba(18, 48, 107, 0.35);
+        }
+
+        button {
+            padding: 12px;
+            background: #12306b;
+            color: white;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            margin-top: 12px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #1a4ba8;
+        }
+
+        /* Línea elegante inferior */
+        .linea {
+            margin-top: 25px;
+            height: 2px;
+            background: #d5d9e3;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-box">
+
+        <!-- Cambia la imagen por tu logo -->
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="212.2" height="50">
+
+        <h2>Iniciar Sesión</h2>
+
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <div class="linea"></div> <!-- línea minimalista -->
+    </div>
+</body>
+</html>
