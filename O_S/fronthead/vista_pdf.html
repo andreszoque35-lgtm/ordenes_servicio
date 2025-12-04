@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Vista previa del recibo</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 90%;
+            height: 80vh;
+            border: 1px solid #888;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button, a {
+            padding: 10px 18px;
+            margin: 5px;
+            background-color: #0c4a6e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        button:hover, a:hover {
+            background-color: #0a3a56;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Recibo generado — Orden #{{ num_orden }}</h2>
+
+    <div class="container">
+        <!-- Mostrar PDF -->
+        <iframe src="/ver_pdf?file={{ pdf_path }}"></iframe>
+    </div>
+
+    <div class="buttons">
+
+        <!-- Botón imprimir -->
+        <button onclick="document.querySelector('iframe').contentWindow.print();">
+            🖨️ Imprimir
+        </button>
+
+        <!-- Botón descargar -->
+        <a href="/descargar_pdf?file={{ pdf_path }}" download>
+            ⬇️ Descargar
+        </a>
+
+        <!-- Volver al inicio -->
+        <a href="/" style="background-color: #2563eb;">
+            🏠 Nueva orden
+        </a>
+
+    </div>
+
+</body>
+</html>
