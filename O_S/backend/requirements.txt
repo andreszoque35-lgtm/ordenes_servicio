@@ -7,3 +7,4 @@ google-auth
 google-auth-oauthlib
 google-auth-httplib2
 oauth2client
+reportlab==4.2.2
